@@ -8,6 +8,8 @@
       "@env/*": ["src/environments/*"],
       "@test/*": ["test/*"]
     },
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
