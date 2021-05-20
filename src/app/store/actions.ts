@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { Session } from '@app/models';
-
 export const login = createAction(
   '[Login Page] login',
   props<{ email: string; password: string }>(),
@@ -20,6 +19,8 @@ export const logoutFailure = createAction(
   '[Auth API] logout failure',
   props<{ errorMessage: string }>(),
 );
+
+export const unauthError = createAction('[Auth API] unauthenticated error');
 
 export const sessionRestored = createAction(
   '[Vault API] session restored',
