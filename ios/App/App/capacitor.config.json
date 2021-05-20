@@ -1,6 +1,6 @@
 {
-  "appId": "com.kensodemann.teataster",
-  "appName": "tea-taster",
-  "webDir": "www",
-  "bundledWebRuntime": false
+	"appId": "com.kensodemann.teataster",
+	"appName": "tea-taster",
+	"webDir": "www",
+	"bundledWebRuntime": false
 }

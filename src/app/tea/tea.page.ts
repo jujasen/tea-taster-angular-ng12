@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import { Tea } from '@app/models';
 import { State } from '@app/store';
 import { logout } from '@app/store/actions';
 import { selectTeas } from '@app/store/selectors';
+import { NavController } from '@ionic/angular';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tea',
@@ -16,7 +16,10 @@ import { selectTeas } from '@app/store/selectors';
 export class TeaPage implements OnInit {
   teas$: Observable<Array<Array<Tea>>>;
 
-  constructor(private store: Store<State>) {}
+  constructor(
+    private navController: NavController,
+    private store: Store<State>,
+  ) {}
 
   ngOnInit() {
     this.teas$ = this.store
@@ -26,6 +29,10 @@ export class TeaPage implements OnInit {
 
   logout() {
     this.store.dispatch(logout());
+  }
+
+  showDetailsPage(id: number) {
+    this.navController.navigateForward(['tea-details', id]);
   }
 
   private teaMatrix(teas: Array<Tea>): Array<Array<Tea>> {
