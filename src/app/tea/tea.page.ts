@@ -32,7 +32,7 @@ export class TeaPage implements OnInit {
   }
 
   showDetailsPage(id: number) {
-    this.navController.navigateForward(['tea-details', id]);
+    this.navController.navigateForward(['tabs', 'tea', 'tea-details', id]);
   }
 
   private teaMatrix(teas: Array<Tea>): Array<Array<Tea>> {
