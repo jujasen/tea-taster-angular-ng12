@@ -20,3 +20,8 @@ export const logoutFailure = createAction(
   '[Auth API] logout failure',
   props<{ errorMessage: string }>(),
 );
+
+export const sessionRestored = createAction(
+  '[Vault API] session restored',
+  props<{ session: Session }>(),
+);
