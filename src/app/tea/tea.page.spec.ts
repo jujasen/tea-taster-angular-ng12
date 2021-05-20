@@ -1,10 +1,13 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { IonicModule } from '@ionic/angular';
-
-import { TeaPage } from './tea.page';
 import { Tea } from '@app/models';
+import { logout } from '@app/store/actions';
+import { AuthState, initialState } from '@app/store/reducers/auth.reducer';
+import { IonicModule } from '@ionic/angular';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TeaPage } from './tea.page';
 
 describe('TeaPage', () => {
   let component: TeaPage;
@@ -17,6 +20,11 @@ describe('TeaPage', () => {
       TestBed.configureTestingModule({
         declarations: [TeaPage],
         imports: [IonicModule],
+        providers: [
+          provideMockStore<{ auth: AuthState }>({
+            initialState: { auth: initialState },
+          }),
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(TeaPage);
@@ -79,6 +87,25 @@ describe('TeaPage', () => {
       });
     });
   });
+
+  describe('logout button', () => {
+    it('dispatches the logout button', () => {
+      const button = fixture.debugElement.query(
+        By.css('[data-testid="logout-button"]'),
+      );
+      const store = TestBed.inject(Store);
+      spyOn(store, 'dispatch');
+      click(button.nativeElement);
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledWith(logout());
+    });
+  });
+
+  const click = (button: HTMLElement) => {
+    const event = new Event('click');
+    button.dispatchEvent(event);
+    fixture.detectChanges();
+  };
 
   const initializeTestData = () => {
     teas = [
