@@ -1,5 +1,15 @@
+import { Session, Tea } from '@app/models';
 import { createAction, props } from '@ngrx/store';
-import { Session } from '@app/models';
+
+export const initialLoadSuccess = createAction(
+  '[Data API] initial data load success',
+  props<{ teas: Array<Tea> }>(),
+);
+export const initialLoadFailure = createAction(
+  '[Data API] initial data load failure',
+  props<{ errorMessage: string }>(),
+);
+
 export const login = createAction(
   '[Login Page] login',
   props<{ email: string; password: string }>(),
