@@ -1,3 +1,4 @@
+import { UnlockMode } from '@app/core';
 import { Session, TastingNote, Tea } from '@app/models';
 import { createAction, props } from '@ngrx/store';
 
@@ -7,7 +8,7 @@ export const initialLoadFailure = createAction(
   props<{ errorMessage: string }>()
 );
 
-export const login = createAction('[Login Page] login', props<{ email: string; password: string }>());
+export const login = createAction('[LoginPage] login', props<{ email: string; password: string; mode?: UnlockMode }>());
 export const loginSuccess = createAction('[Auth API] login success', props<{ session: Session }>());
 export const loginFailure = createAction('[Auth API] login failure', props<{ errorMessage: string }>());
 
@@ -15,8 +16,13 @@ export const logout = createAction('[Tea Page] logout');
 export const logoutSuccess = createAction('[Auth API] logout success');
 export const logoutFailure = createAction('[Auth API] logout failure', props<{ errorMessage: string }>());
 
+export const unlockSession = createAction('[Login Page] unlock session');
+export const unlockSessionSuccess = createAction('[Vault API] unlock session success');
+export const unlockSessionFailure = createAction('[Vault API] unlock session failure');
+
 export const unauthError = createAction('[Auth API] unauthenticated error');
 
+export const sessionLocked = createAction('[Vault API] session locked');
 export const sessionRestored = createAction('[Vault API] session restored', props<{ session: Session }>());
 
 export const teaDetailsChangeRating = createAction(
