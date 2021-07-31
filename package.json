@@ -63,7 +63,7 @@
     "@typescript-eslint/parser": "^4.28.4",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "~2.23.2",
-    "eslint-plugin-jsdoc": "^35.5.0",
+    "eslint-plugin-jsdoc": "~36.0.6",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "husky": "^7.0.1",
     "jasmine-core": "^3.8.0",
@@ -78,7 +78,7 @@
     "pretty-quick": "~3.1.0",
     "protractor": "~7.0.0",
     "ts-node": "^10.1.0",
-    "typescript": "~4.2.4"
+    "typescript": "~4.3.5"
   },
   "prettier": "@ionic/prettier-config"
 }
