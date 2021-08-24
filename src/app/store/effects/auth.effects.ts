@@ -20,33 +20,29 @@ export class AuthEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(login),
-      exhaustMap(action =>
+      exhaustMap((action) =>
         this.auth.login(action.email, action.password).pipe(
-          tap(session => {
+          tap((session) => {
             if (session) {
               this.sessionVault.login(session);
             }
           }),
-          map(session =>
-            session
-              ? loginSuccess({ session })
-              : loginFailure({ errorMessage: 'Invalid Username or Password' }),
+          map((session) =>
+            session ? loginSuccess({ session }) : loginFailure({ errorMessage: 'Invalid Username or Password' })
           ),
-          catchError(() =>
-            of(loginFailure({ errorMessage: 'Unknown error in login' })),
-          ),
-        ),
-      ),
-    ),
+          catchError(() => of(loginFailure({ errorMessage: 'Unknown error in login' })))
+        )
+      )
+    )
   );
 
   loginSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(loginSuccess),
-        tap(() => this.navController.navigateRoot(['/'])),
+        tap(() => this.navController.navigateRoot(['/']))
       ),
-    { dispatch: false },
+    { dispatch: false }
   );
 
   logout$ = createEffect(() =>
@@ -56,21 +52,19 @@ export class AuthEffects {
         this.auth.logout().pipe(
           tap(() => this.sessionVault.logout()),
           map(() => logoutSuccess()),
-          catchError(() =>
-            of(logoutFailure({ errorMessage: 'Unknown error in logout' })),
-          ),
-        ),
-      ),
-    ),
+          catchError(() => of(logoutFailure({ errorMessage: 'Unknown error in logout' })))
+        )
+      )
+    )
   );
 
   logoutSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(logoutSuccess),
-        tap(() => this.navController.navigateRoot(['/', 'login'])),
+        tap(() => this.navController.navigateRoot(['/', 'login']))
       ),
-    { dispatch: false },
+    { dispatch: false }
   );
 
   unauthError$ = createEffect(() =>
@@ -79,14 +73,14 @@ export class AuthEffects {
       tap(() => {
         this.sessionVault.logout();
       }),
-      map(() => logoutSuccess()),
-    ),
+      map(() => logoutSuccess())
+    )
   );
 
   constructor(
     private actions$: Actions,
     private auth: AuthenticationService,
     private navController: NavController,
-    private sessionVault: SessionVaultService,
+    private sessionVault: SessionVaultService
   ) {}
 }

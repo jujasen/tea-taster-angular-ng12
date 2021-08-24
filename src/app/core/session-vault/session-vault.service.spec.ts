@@ -64,9 +64,7 @@ describe('SessionVaultService', () => {
         token: '19940059fkkf039',
       };
       beforeEach(() => {
-        spyOn(Storage, 'get').and.returnValue(
-          Promise.resolve({ value: JSON.stringify(session) }),
-        );
+        spyOn(Storage, 'get').and.returnValue(Promise.resolve({ value: JSON.stringify(session) }));
       });
 
       it('resolves the session', async () => {
@@ -78,9 +76,7 @@ describe('SessionVaultService', () => {
         spyOn(store, 'dispatch');
         await service.restoreSession();
         expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith(
-          sessionRestored({ session }),
-        );
+        expect(store.dispatch).toHaveBeenCalledWith(sessionRestored({ session }));
       });
     });
 

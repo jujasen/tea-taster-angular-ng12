@@ -40,11 +40,7 @@ export class TastingNoteEditorComponent implements OnInit {
     return !!(this.brand && this.name && this.rating);
   }
 
-  constructor(
-    private modalController: ModalController,
-    private platform: Platform,
-    private store: Store<State>,
-  ) {}
+  constructor(private modalController: ModalController, private platform: Platform, private store: Store<State>) {}
 
   ngOnInit() {
     this.teaCategories$ = this.store.select(selectTeas);

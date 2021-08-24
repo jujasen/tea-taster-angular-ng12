@@ -33,7 +33,7 @@ describe('TeaDetailsPage', () => {
 
       fixture = TestBed.createComponent(TeaDetailsPage);
       component = fixture.componentInstance;
-    }),
+    })
   );
 
   it('should create', () => {
@@ -75,12 +75,8 @@ describe('TeaDetailsPage', () => {
 
     it('binds the description', () => {
       fixture.detectChanges();
-      const el = fixture.debugElement.query(
-        By.css('[data-testid="description"]'),
-      );
-      expect(el.nativeElement.textContent.trim()).toBe(
-        'Often looks like frosty silver pine needles',
-      );
+      const el = fixture.debugElement.query(By.css('[data-testid="description"]'));
+      expect(el.nativeElement.textContent.trim()).toBe('Often looks like frosty silver pine needles');
     });
   });
 
@@ -105,9 +101,7 @@ describe('TeaDetailsPage', () => {
       component.rating = 3;
       component.changeRating(tea);
       expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(
-        teaDetailsChangeRating({ tea, rating: 3 }),
-      );
+      expect(store.dispatch).toHaveBeenCalledWith(teaDetailsChangeRating({ tea, rating: 3 }));
     });
   });
 });

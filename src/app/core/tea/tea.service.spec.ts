@@ -1,8 +1,5 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Storage } from '@capacitor/storage';
 
 import { environment } from '@env/environment';
@@ -41,19 +38,15 @@ describe('TeaService', () => {
   describe('get all', () => {
     it('gets the tea categories', () => {
       service.getAll().subscribe();
-      const req = httpTestingController.expectOne(
-        `${environment.dataService}/tea-categories`,
-      );
+      const req = httpTestingController.expectOne(`${environment.dataService}/tea-categories`);
       expect(req.request.method).toEqual('GET');
       httpTestingController.verify();
     });
 
     it('transforms each tea', fakeAsync(() => {
       let teas: Array<Tea>;
-      service.getAll().subscribe(t => (teas = t));
-      const req = httpTestingController.expectOne(
-        `${environment.dataService}/tea-categories`,
-      );
+      service.getAll().subscribe((t) => (teas = t));
+      const req = httpTestingController.expectOne(`${environment.dataService}/tea-categories`);
       req.flush(resultTeas);
       tick();
       httpTestingController.verify();

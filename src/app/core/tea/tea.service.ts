@@ -10,27 +10,14 @@ import { mergeMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class TeaService {
-  private images: Array<string> = [
-    'green',
-    'black',
-    'herbal',
-    'oolong',
-    'dark',
-    'puer',
-    'white',
-    'yellow',
-  ];
+  private images: Array<string> = ['green', 'black', 'herbal', 'oolong', 'dark', 'puer', 'white', 'yellow'];
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Array<Tea>> {
     return this.http
       .get(`${environment.dataService}/tea-categories`)
-      .pipe(
-        mergeMap((teas: Array<any>) =>
-          Promise.all(teas.map(t => this.convert(t))),
-        ),
-      );
+      .pipe(mergeMap((teas: Array<any>) => Promise.all(teas.map((t) => this.convert(t)))));
   }
 
   save(tea: Tea): Promise<void> {

@@ -17,7 +17,7 @@ describe('TabsPage', () => {
       fixture = TestBed.createComponent(TabsPage);
       component = fixture.componentInstance;
       fixture.detectChanges();
-    }),
+    })
   );
 
   it('should create', () => {

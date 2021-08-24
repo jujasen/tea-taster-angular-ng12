@@ -57,7 +57,7 @@ describe('TastingNoteEditorComponent', () => {
 
       fixture = TestBed.createComponent(TastingNoteEditorComponent);
       component = fixture.componentInstance;
-    }),
+    })
   );
 
   it('should create', () => {
@@ -148,9 +148,7 @@ describe('TastingNoteEditorComponent', () => {
       });
 
       it('is available', () => {
-        expect(
-          fixture.debugElement.query(By.css('#share-button')),
-        ).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('#share-button'))).toBeTruthy();
       });
 
       it('is not allowed until a brand, name, and rating have all beeen entered', () => {
@@ -218,7 +216,7 @@ describe('TastingNoteEditorComponent', () => {
               rating: 1,
               notes: 'ick',
             },
-          }),
+          })
         );
       });
 
@@ -262,7 +260,7 @@ describe('TastingNoteEditorComponent', () => {
               rating: 1,
               notes: 'ick',
             },
-          }),
+          })
         );
       });
 

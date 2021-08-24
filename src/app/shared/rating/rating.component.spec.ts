@@ -6,12 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { RatingComponent } from './rating.component';
 
 @Component({
-  template: ` <app-rating
-    [(ngModel)]="rating"
-    [disabled]="disabled"
-    (ngModelChange)="onChange()"
-  >
-  </app-rating>`,
+  template: ` <app-rating [(ngModel)]="rating" [disabled]="disabled" (ngModelChange)="onChange()"> </app-rating>`,
 })
 class TestHostComponent {
   disabled = false;
@@ -38,7 +33,7 @@ describe('RatingComponent', () => {
       hostComponent = fixture.componentInstance;
       ratingEl = fixture.nativeElement.querySelector('app-rating');
       fixture.detectChanges();
-    }),
+    })
   );
 
   it('should create', () => {

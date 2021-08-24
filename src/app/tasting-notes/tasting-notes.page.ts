@@ -19,7 +19,7 @@ export class TastingNotesPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private routerOutlet: IonRouterOutlet,
-    private store: Store<State>,
+    private store: Store<State>
   ) {}
 
   ngOnInit() {

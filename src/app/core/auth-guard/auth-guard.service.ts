@@ -12,23 +12,19 @@ import { map, mergeMap, take, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
-  constructor(
-    private navController: NavController,
-    private store: Store<State>,
-    private vault: SessionVaultService,
-  ) {}
+  constructor(private navController: NavController, private store: Store<State>, private vault: SessionVaultService) {}
 
   canActivate(): Observable<boolean> {
     return this.store.pipe(
       select(selectAuthToken),
       take(1),
-      mergeMap(token => (token ? of(token) : this.vault.restoreSession())),
-      map(value => !!value),
-      tap(sessionExists => {
+      mergeMap((token) => (token ? of(token) : this.vault.restoreSession())),
+      map((value) => !!value),
+      tap((sessionExists) => {
         if (!sessionExists) {
           this.navController.navigateRoot(['/', 'login']);
         }
-      }),
+      })
     );
   }
 }

@@ -24,12 +24,12 @@ export class AuthenticationService {
         password,
       })
       .pipe(
-        map(res => {
+        map((res) => {
           if (res.success) {
             delete res.success;
             return res;
           }
-        }),
+        })
       );
   }
 

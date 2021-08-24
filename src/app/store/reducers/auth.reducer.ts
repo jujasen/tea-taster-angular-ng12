@@ -15,7 +15,7 @@ export const initialState: AuthState = {
 
 export const reducer = createReducer(
   initialState,
-  on(Actions.login, state => ({
+  on(Actions.login, (state) => ({
     ...state,
     loading: true,
     errorMessage: '',
@@ -30,12 +30,12 @@ export const reducer = createReducer(
     loading: false,
     errorMessage,
   })),
-  on(Actions.logout, state => ({
+  on(Actions.logout, (state) => ({
     ...state,
     loading: true,
     errorMessage: '',
   })),
-  on(Actions.logoutSuccess, state => {
+  on(Actions.logoutSuccess, (state) => {
     const newState = { ...state, loading: false };
     delete newState.session;
     return newState;
@@ -45,7 +45,7 @@ export const reducer = createReducer(
     loading: false,
     errorMessage,
   })),
-  on(Actions.unauthError, state => {
+  on(Actions.unauthError, (state) => {
     const newState = { ...state };
     delete newState.session;
     return newState;
@@ -53,5 +53,5 @@ export const reducer = createReducer(
   on(Actions.sessionRestored, (state, { session }) => ({
     ...state,
     session,
-  })),
+  }))
 );

@@ -1,10 +1,4 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TastingNote } from '@app/models';
 import { selectNotes } from '@app/store';
@@ -13,10 +7,7 @@ import { DataState, initialState } from '@app/store/reducers/data.reducer';
 import { IonicModule, IonRouterOutlet, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import {
-  createOverlayControllerMock,
-  createOverlayElementMock,
-} from '@test/mocks';
+import { createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
 import { TastingNoteEditorComponent } from './tasting-note-editor/tasting-note-editor.component';
 import { TastingNoteEditorModule } from './tasting-note-editor/tasting-note-editor.module';
 import { TastingNotesPage } from './tasting-notes.page';
@@ -41,8 +32,7 @@ describe('TastingNotesPage', () => {
         providers: [
           {
             provide: ModalController,
-            useFactory: () =>
-              createOverlayControllerMock('ModalController', modal),
+            useFactory: () => createOverlayControllerMock('ModalController', modal),
           },
           { provide: IonRouterOutlet, useValue: mockRouterOutlet },
           provideMockStore<{ data: DataState }>({
@@ -56,7 +46,7 @@ describe('TastingNotesPage', () => {
 
       fixture = TestBed.createComponent(TastingNotesPage);
       component = fixture.componentInstance;
-    }),
+    })
   );
 
   it('should create', () => {
@@ -88,9 +78,7 @@ describe('TastingNotesPage', () => {
 
     it('creates the editor modal', () => {
       const modalController = TestBed.inject(ModalController);
-      const button = fixture.debugElement.query(
-        By.css('[data-testid="add-new-button"]'),
-      ).nativeElement;
+      const button = fixture.debugElement.query(By.css('[data-testid="add-new-button"]')).nativeElement;
       click(button);
       expect(modalController.create).toHaveBeenCalledTimes(1);
       expect(modalController.create).toHaveBeenCalledWith({
@@ -102,9 +90,7 @@ describe('TastingNotesPage', () => {
     });
 
     it('displays the editor modal', fakeAsync(() => {
-      const button = fixture.debugElement.query(
-        By.css('[data-testid="add-new-button"]'),
-      ).nativeElement;
+      const button = fixture.debugElement.query(By.css('[data-testid="add-new-button"]')).nativeElement;
       click(button);
       tick();
       expect(modal.present).toHaveBeenCalledTimes(1);

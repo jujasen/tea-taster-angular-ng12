@@ -10,7 +10,7 @@ export interface DataState {
 }
 
 export const initialState: DataState = {
-  notes:[],
+  notes: [],
   teas: [],
   loading: false,
   errorMessage: '',
@@ -18,12 +18,12 @@ export const initialState: DataState = {
 
 export const reducer = createReducer(
   initialState,
-  on(Actions.loginSuccess, state => ({
+  on(Actions.loginSuccess, (state) => ({
     ...state,
     loading: true,
     errorMessage: '',
   })),
-  on(Actions.sessionRestored, state => ({
+  on(Actions.sessionRestored, (state) => ({
     ...state,
     loading: true,
     errorMessage: '',
@@ -38,14 +38,14 @@ export const reducer = createReducer(
     loading: false,
     teas: [...teas],
   })),
-  on(Actions.logoutSuccess, state => ({
+  on(Actions.logoutSuccess, (state) => ({
     ...state,
     notes: [],
     teas: [],
   })),
   on(Actions.teaDetailsChangeRatingSuccess, (state, { tea }) => {
     const teas = [...state.teas];
-    const idx = state.teas.findIndex(t => t.id === tea.id);
+    const idx = state.teas.findIndex((t) => t.id === tea.id);
     if (idx > -1) {
       teas.splice(idx, 1, tea);
     }
@@ -55,7 +55,7 @@ export const reducer = createReducer(
     ...state,
     errorMessage,
   })),
-  on(Actions.notesPageLoaded, state => ({
+  on(Actions.notesPageLoaded, (state) => ({
     ...state,
     loading: true,
     errorMessage: '',
@@ -70,14 +70,14 @@ export const reducer = createReducer(
     loading: false,
     errorMessage,
   })),
-  on(Actions.noteSaved, state => ({
+  on(Actions.noteSaved, (state) => ({
     ...state,
     loading: true,
     errorMessage: '',
   })),
   on(Actions.noteSavedSuccess, (state, { note }) => {
     const notes = [...state.notes];
-    const idx = notes.findIndex(n => n.id === note.id);
+    const idx = notes.findIndex((n) => n.id === note.id);
     if (idx > -1) {
       notes.splice(idx, 1, note);
     } else {
@@ -94,14 +94,14 @@ export const reducer = createReducer(
     loading: false,
     errorMessage,
   })),
-  on(Actions.noteDeleted, state => ({
+  on(Actions.noteDeleted, (state) => ({
     ...state,
     loading: true,
     errorMessage: '',
   })),
   on(Actions.noteDeletedSuccess, (state, { note }) => {
     const notes = [...state.notes];
-    const idx = notes.findIndex(n => n.id === note.id);
+    const idx = notes.findIndex((n) => n.id === note.id);
     if (idx > -1) {
       notes.splice(idx, 1);
     }
@@ -115,5 +115,5 @@ export const reducer = createReducer(
     ...state,
     loading: false,
     errorMessage,
-  })),
+  }))
 );

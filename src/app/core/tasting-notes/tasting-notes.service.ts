@@ -12,15 +12,11 @@ export class TastingNotesService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Array<TastingNote>> {
-    return this.http.get<Array<TastingNote>>(
-      `${environment.dataService}/user-tasting-notes`,
-    );
+    return this.http.get<Array<TastingNote>>(`${environment.dataService}/user-tasting-notes`);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(
-      `${environment.dataService}/user-tasting-notes/${id}`,
-    );
+    return this.http.delete<void>(`${environment.dataService}/user-tasting-notes/${id}`);
   }
 
   save(note: TastingNote): Observable<TastingNote> {

@@ -1,10 +1,4 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { selectAuthErrorMessage } from '@app/store';
@@ -34,7 +28,7 @@ describe('LoginPage', () => {
       fixture = TestBed.createComponent(LoginPage);
       component = fixture.componentInstance;
       fixture.detectChanges();
-    }),
+    })
   );
 
   it('should create', () => {
@@ -123,9 +117,7 @@ describe('LoginPage', () => {
       setInputValue(password, 'MyPassW0rd');
       click(button);
       expect(dispatchSpy).toHaveBeenCalledTimes(1);
-      expect(dispatchSpy).toHaveBeenCalledWith(
-        login({ email: 'test@test.com', password: 'MyPassW0rd' }),
-      );
+      expect(dispatchSpy).toHaveBeenCalledWith(login({ email: 'test@test.com', password: 'MyPassW0rd' }));
     });
   });
 
@@ -153,16 +145,12 @@ describe('LoginPage', () => {
 
     it('displays an error message if the e-mail address has an invalid format', () => {
       setInputValue(email, 'test');
-      expect(errorDiv.textContent.trim()).toEqual(
-        'E-Mail Address must have a valid format',
-      );
+      expect(errorDiv.textContent.trim()).toEqual('E-Mail Address must have a valid format');
     });
 
     it('clears the error message when the e-mail address has a valid format', () => {
       setInputValue(email, 'test');
-      expect(errorDiv.textContent.trim()).toEqual(
-        'E-Mail Address must have a valid format',
-      );
+      expect(errorDiv.textContent.trim()).toEqual('E-Mail Address must have a valid format');
       setInputValue(email, 'test@test.com');
       expect(errorDiv.textContent.trim()).toEqual('');
     });
@@ -176,10 +164,7 @@ describe('LoginPage', () => {
 
     it('displays the auth state error message if there is one', () => {
       const store = TestBed.inject(Store) as MockStore;
-      const mockErrorMessageSelector = store.overrideSelector(
-        selectAuthErrorMessage,
-        '',
-      );
+      const mockErrorMessageSelector = store.overrideSelector(selectAuthErrorMessage, '');
       store.refreshState();
       fixture.detectChanges();
       expect(errorDiv.textContent.trim()).toEqual('');

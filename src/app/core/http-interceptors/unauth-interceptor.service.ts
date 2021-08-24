@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
@@ -17,10 +11,7 @@ import { unauthError } from '@app/store/actions';
 export class UnauthInterceptor implements HttpInterceptor {
   constructor(private store: Store<State>) {}
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler,
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       tap(
         (event: HttpEvent<any>) => {},
@@ -28,8 +19,8 @@ export class UnauthInterceptor implements HttpInterceptor {
           if (err instanceof HttpErrorResponse && err.status === 401) {
             this.store.dispatch(unauthError());
           }
-        },
-      ),
+        }
+      )
     );
   }
 }

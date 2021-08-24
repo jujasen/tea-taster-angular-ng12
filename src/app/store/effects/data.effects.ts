@@ -30,41 +30,39 @@ export class DataEffects {
       ofType(loginSuccess, sessionRestored),
       mergeMap(() =>
         this.teaService.getAll().pipe(
-          map(teas => initialLoadSuccess({ teas })),
+          map((teas) => initialLoadSuccess({ teas })),
           catchError(() =>
             of(
               initialLoadFailure({
                 errorMessage: 'Error in data load, check server logs',
-              }),
-            ),
-          ),
-        ),
-      ),
-    ),
+              })
+            )
+          )
+        )
+      )
+    )
   );
 
   teaRatingChanged$ = createEffect(() =>
     this.actions$.pipe(
       ofType(teaDetailsChangeRating),
-      mergeMap(action =>
-        from(
-          this.teaService.save({ ...action.tea, rating: action.rating }),
-        ).pipe(
+      mergeMap((action) =>
+        from(this.teaService.save({ ...action.tea, rating: action.rating })).pipe(
           map(() =>
             teaDetailsChangeRatingSuccess({
               tea: { ...action.tea, rating: action.rating },
-            }),
+            })
           ),
-          catchError(err =>
+          catchError((err) =>
             of(
               teaDetailsChangeRatingFailure({
                 errorMessage: err.message || 'Unknown error in rating save',
-              }),
-            ),
-          ),
-        ),
-      ),
-    ),
+              })
+            )
+          )
+        )
+      )
+    )
   );
 
   notesPageLoaded$ = createEffect(() =>
@@ -72,58 +70,58 @@ export class DataEffects {
       ofType(notesPageLoaded),
       mergeMap(() =>
         this.tastingNotesService.getAll().pipe(
-          map(notes => notesPageLoadedSuccess({ notes })),
+          map((notes) => notesPageLoadedSuccess({ notes })),
           catchError(() =>
             of(
               notesPageLoadedFailure({
                 errorMessage: 'Error in data load, check server logs',
-              }),
-            ),
-          ),
-        ),
-      ),
-    ),
+              })
+            )
+          )
+        )
+      )
+    )
   );
 
   noteSaved$ = createEffect(() =>
     this.actions$.pipe(
       ofType(noteSaved),
-      mergeMap(action =>
+      mergeMap((action) =>
         this.tastingNotesService.save(action.note).pipe(
-          map(note => noteSavedSuccess({ note })),
+          map((note) => noteSavedSuccess({ note })),
           catchError(() =>
             of(
               noteSavedFailure({
                 errorMessage: 'Error in data load, check server logs',
-              }),
-            ),
-          ),
-        ),
-      ),
-    ),
+              })
+            )
+          )
+        )
+      )
+    )
   );
 
   noteDeleted$ = createEffect(() =>
     this.actions$.pipe(
       ofType(noteDeleted),
-      mergeMap(action =>
+      mergeMap((action) =>
         this.tastingNotesService.delete(action.note.id).pipe(
           map(() => noteDeletedSuccess({ note: action.note })),
           catchError(() =>
             of(
               noteDeletedFailure({
                 errorMessage: 'Error in data load, check server logs',
-              }),
-            ),
-          ),
-        ),
-      ),
-    ),
+              })
+            )
+          )
+        )
+      )
+    )
   );
 
   constructor(
     private actions$: Actions,
     private tastingNotesService: TastingNotesService,
-    private teaService: TeaService,
+    private teaService: TeaService
   ) {}
 }

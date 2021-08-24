@@ -12,10 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'tea-details',
-    loadChildren: () =>
-      import('../tea-details/tea-details.module').then(
-        m => m.TeaDetailsPageModule,
-      ),
+    loadChildren: () => import('../tea-details/tea-details.module').then((m) => m.TeaDetailsPageModule),
   },
 ];
 

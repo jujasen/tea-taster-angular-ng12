@@ -21,9 +21,7 @@ export class TeaDetailsPage implements OnInit {
 
   ngOnInit() {
     const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-    this.tea$ = this.store
-      .select(selectTea, { id })
-      .pipe(tap(tea => (this.rating = tea?.rating)));
+    this.tea$ = this.store.select(selectTea, { id }).pipe(tap((tea) => (this.rating = tea?.rating)));
   }
 
   changeRating(tea: Tea) {

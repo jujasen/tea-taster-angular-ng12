@@ -10,13 +10,7 @@ import { TastingNotesPage } from './tasting-notes.page';
 import { TastingNoteEditorModule } from './tasting-note-editor/tasting-note-editor.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    TastingNoteEditorModule,
-    TastingNotesPageRoutingModule,
-  ],
+  imports: [CommonModule, FormsModule, IonicModule, TastingNoteEditorModule, TastingNotesPageRoutingModule],
   declarations: [TastingNotesPage],
 })
 export class TastingNotesPageModule {}

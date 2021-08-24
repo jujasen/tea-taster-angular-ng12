@@ -2,14 +2,8 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Tea } from '@app/models';
-import {
-  AuthState,
-  initialState as initialAuthState,
-} from '@app/store/reducers/auth.reducer';
-import {
-  DataState,
-  initialState as initialDataState,
-} from '@app/store/reducers/data.reducer';
+import { AuthState, initialState as initialAuthState } from '@app/store/reducers/auth.reducer';
+import { DataState, initialState as initialDataState } from '@app/store/reducers/data.reducer';
 import { selectTeas } from '@app/store/selectors';
 import { IonicModule, NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
@@ -42,7 +36,7 @@ describe('TeaPage', () => {
       fixture = TestBed.createComponent(TeaPage);
       component = fixture.componentInstance;
       fixture.detectChanges();
-    }),
+    })
   );
 
   it('should create', () => {
@@ -93,9 +87,7 @@ describe('TeaPage', () => {
       expect(cols.length).toBe(7);
       cols.forEach((col, idx) => {
         const title = col.query(By.css('ion-card-content'));
-        expect(title.nativeElement.textContent.trim()).toBe(
-          teas[idx].description,
-        );
+        expect(title.nativeElement.textContent.trim()).toBe(teas[idx].description);
       });
     });
   });
@@ -118,12 +110,7 @@ describe('TeaPage', () => {
     it('passes the details page and the ID', () => {
       const navController = TestBed.inject(NavController);
       click(card);
-      expect(navController.navigateForward).toHaveBeenCalledWith([
-        'tabs',
-        'tea',
-        'tea-details',
-        teas[2].id,
-      ]);
+      expect(navController.navigateForward).toHaveBeenCalledWith(['tabs', 'tea', 'tea-details', teas[2].id]);
     });
   });
 

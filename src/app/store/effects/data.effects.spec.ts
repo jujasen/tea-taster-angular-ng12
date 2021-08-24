@@ -1,9 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TastingNotesService, TeaService } from '@app/core';
-import {
-  createTastingNotesServiceMock,
-  createTeaServiceMock,
-} from '@app/core/testing';
+import { createTastingNotesServiceMock, createTeaServiceMock } from '@app/core/testing';
 import { Session, TastingNote, Tea } from '@app/models';
 import {
   loginSuccess,
@@ -36,8 +33,7 @@ describe('DataEffects', () => {
       name: 'Yellow Label',
       teaCategoryId: 2,
       rating: 1,
-      notes:
-        'Very acidic, even as dark teas go, OK for iced tea, horrible for any other application',
+      notes: 'Very acidic, even as dark teas go, OK for iced tea, horrible for any other application',
     },
     {
       id: 73,
@@ -102,9 +98,9 @@ describe('DataEffects', () => {
     expect(effects).toBeTruthy();
   });
 
-  [loginSuccess({ session }), sessionRestored({ session })].forEach(action =>
+  [loginSuccess({ session }), sessionRestored({ session })].forEach((action) =>
     describe(`sessionLoaded$ with ${action.type}`, () => {
-      it('fetches the teas', done => {
+      it('fetches the teas', (done) => {
         const teaService = TestBed.inject(TeaService);
         (teaService.getAll as any).and.returnValue(of(undefined));
         actions$ = of(action);
@@ -120,9 +116,9 @@ describe('DataEffects', () => {
           (teaService.getAll as any).and.returnValue(of(teas));
         });
 
-        it('dispatches initial load success', done => {
+        it('dispatches initial load success', (done) => {
           actions$ = of(action);
-          effects.sessionLoaded$.subscribe(mappedAction => {
+          effects.sessionLoaded$.subscribe((mappedAction) => {
             expect(mappedAction).toEqual({
               type: '[Data API] initial data load success',
               teas,
@@ -135,14 +131,12 @@ describe('DataEffects', () => {
       describe('on an exception', () => {
         beforeEach(() => {
           const teaService = TestBed.inject(TeaService);
-          (teaService.getAll as any).and.returnValue(
-            throwError(new Error('the server is blowing chunks')),
-          );
+          (teaService.getAll as any).and.returnValue(throwError(new Error('the server is blowing chunks')));
         });
 
-        it('dispatches initial load failure', done => {
+        it('dispatches initial load failure', (done) => {
           actions$ = of(action);
-          effects.sessionLoaded$.subscribe(newAction => {
+          effects.sessionLoaded$.subscribe((newAction) => {
             expect(newAction).toEqual({
               type: '[Data API] initial data load failure',
               errorMessage: 'Error in data load, check server logs',
@@ -151,11 +145,11 @@ describe('DataEffects', () => {
           });
         });
       });
-    }),
+    })
   );
 
   describe('teaRatingChanged$', () => {
-    it('saves the tea', done => {
+    it('saves the tea', (done) => {
       const teaService = TestBed.inject(TeaService);
       actions$ = of(teaDetailsChangeRating({ tea: teas[1], rating: 5 }));
       effects.teaRatingChanged$.subscribe(() => {
@@ -166,9 +160,9 @@ describe('DataEffects', () => {
     });
 
     describe('on success', () => {
-      it('dispatches tea rating change success', done => {
+      it('dispatches tea rating change success', (done) => {
         actions$ = of(teaDetailsChangeRating({ tea: teas[1], rating: 5 }));
-        effects.teaRatingChanged$.subscribe(newAction => {
+        effects.teaRatingChanged$.subscribe((newAction) => {
           expect(newAction).toEqual({
             type: '[Data API] change rating success',
             tea: { ...teas[1], rating: 5 },
@@ -181,14 +175,12 @@ describe('DataEffects', () => {
     describe('on an exception', () => {
       beforeEach(() => {
         const teaService = TestBed.inject(TeaService);
-        (teaService.save as any).and.returnValue(
-          Promise.reject(new Error('private storage is blowing chunks?')),
-        );
+        (teaService.save as any).and.returnValue(Promise.reject(new Error('private storage is blowing chunks?')));
       });
 
-      it('dispatches tea rating change failure', done => {
+      it('dispatches tea rating change failure', (done) => {
         actions$ = of(teaDetailsChangeRating({ tea: teas[1], rating: 5 }));
-        effects.teaRatingChanged$.subscribe(newAction => {
+        effects.teaRatingChanged$.subscribe((newAction) => {
           expect(newAction).toEqual({
             type: '[Data API] change rating failure',
             errorMessage: 'private storage is blowing chunks?',
@@ -205,7 +197,7 @@ describe('DataEffects', () => {
       (notesService.getAll as any).and.returnValue(of(notes));
     });
 
-    it('loads the notes', done => {
+    it('loads the notes', (done) => {
       const notesService = TestBed.inject(TastingNotesService);
       actions$ = of(notesPageLoaded());
       effects.notesPageLoaded$.subscribe(() => {
@@ -215,9 +207,9 @@ describe('DataEffects', () => {
     });
 
     describe('on success', () => {
-      it('dispatches notes loaded success', done => {
+      it('dispatches notes loaded success', (done) => {
         actions$ = of(notesPageLoaded());
-        effects.notesPageLoaded$.subscribe(newAction => {
+        effects.notesPageLoaded$.subscribe((newAction) => {
           expect(newAction).toEqual({
             type: '[Data API] notes page loaded success',
             notes,
@@ -230,14 +222,12 @@ describe('DataEffects', () => {
     describe('on an exception', () => {
       beforeEach(() => {
         const notesService = TestBed.inject(TastingNotesService);
-        (notesService.getAll as any).and.returnValue(
-          throwError(new Error('the server is blowing chunks')),
-        );
+        (notesService.getAll as any).and.returnValue(throwError(new Error('the server is blowing chunks')));
       });
 
-      it('dispatches notes loaded failure with a generic message', done => {
+      it('dispatches notes loaded failure with a generic message', (done) => {
         actions$ = of(notesPageLoaded());
-        effects.notesPageLoaded$.subscribe(newAction => {
+        effects.notesPageLoaded$.subscribe((newAction) => {
           expect(newAction).toEqual({
             type: '[Data API] notes page loaded failure',
             errorMessage: 'Error in data load, check server logs',
@@ -264,7 +254,7 @@ describe('DataEffects', () => {
       (notesService.save as any).and.returnValue(of(noteWithId));
     });
 
-    it('saves the notes', done => {
+    it('saves the notes', (done) => {
       const notesService = TestBed.inject(TastingNotesService);
       actions$ = of(noteSaved({ note }));
       effects.noteSaved$.subscribe(() => {
@@ -275,9 +265,9 @@ describe('DataEffects', () => {
     });
 
     describe('on success', () => {
-      it('dispatches note saved success', done => {
+      it('dispatches note saved success', (done) => {
         actions$ = of(noteSaved({ note }));
-        effects.noteSaved$.subscribe(newAction => {
+        effects.noteSaved$.subscribe((newAction) => {
           expect(newAction).toEqual({
             type: '[Data API] note saved success',
             note: noteWithId,
@@ -290,14 +280,12 @@ describe('DataEffects', () => {
     describe('on an exception', () => {
       beforeEach(() => {
         const notesService = TestBed.inject(TastingNotesService);
-        (notesService.save as any).and.returnValue(
-          throwError(new Error('the server is blowing chunks')),
-        );
+        (notesService.save as any).and.returnValue(throwError(new Error('the server is blowing chunks')));
       });
 
-      it('dispatches note saved failure with a generic message', done => {
+      it('dispatches note saved failure with a generic message', (done) => {
         actions$ = of(noteSaved({ note }));
-        effects.noteSaved$.subscribe(newAction => {
+        effects.noteSaved$.subscribe((newAction) => {
           expect(newAction).toEqual({
             type: '[Data API] note saved failure',
             errorMessage: 'Error in data load, check server logs',
@@ -314,7 +302,7 @@ describe('DataEffects', () => {
       (notesService.delete as any).and.returnValue(of(null));
     });
 
-    it('deletes the notes', done => {
+    it('deletes the notes', (done) => {
       const notesService = TestBed.inject(TastingNotesService);
       actions$ = of(noteDeleted({ note: notes[1] }));
       effects.noteDeleted$.subscribe(() => {
@@ -325,9 +313,9 @@ describe('DataEffects', () => {
     });
 
     describe('on success', () => {
-      it('dispatches note deleted success', done => {
+      it('dispatches note deleted success', (done) => {
         actions$ = of(noteDeleted({ note: notes[1] }));
-        effects.noteDeleted$.subscribe(newAction => {
+        effects.noteDeleted$.subscribe((newAction) => {
           expect(newAction).toEqual({
             type: '[Data API] note deleted success',
             note: notes[1],
@@ -340,14 +328,12 @@ describe('DataEffects', () => {
     describe('on an exception', () => {
       beforeEach(() => {
         const notesService = TestBed.inject(TastingNotesService);
-        (notesService.delete as any).and.returnValue(
-          throwError(new Error('the server is blowing chunks')),
-        );
+        (notesService.delete as any).and.returnValue(throwError(new Error('the server is blowing chunks')));
       });
 
-      it('dispatches note deleted failure with a generic message', done => {
+      it('dispatches note deleted failure with a generic message', (done) => {
         actions$ = of(noteDeleted({ note: notes[1] }));
-        effects.noteDeleted$.subscribe(newAction => {
+        effects.noteDeleted$.subscribe((newAction) => {
           expect(newAction).toEqual({
             type: '[Data API] note deleted failure',
             errorMessage: 'Error in data load, check server logs',

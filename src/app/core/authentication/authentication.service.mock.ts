@@ -6,4 +6,3 @@ export const createAuthenticationServiceMock = () =>
     login: EMPTY,
     logout: EMPTY,
   });
-

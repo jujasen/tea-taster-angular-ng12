@@ -1,8 +1,5 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import {
-  HttpTestingController,
-  HttpClientTestingModule,
-} from '@angular/common/http/testing';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { environment } from '@env/environment';
 import { AuthenticationService } from './authentication.service';
@@ -27,9 +24,7 @@ describe('AuthenticationService', () => {
   describe('login', () => {
     it('POSTs the login', () => {
       service.login('thank.you@forthefish.com', 'solongDude').subscribe();
-      const req = httpTestingController.expectOne(
-        `${environment.dataService}/login`,
-      );
+      const req = httpTestingController.expectOne(`${environment.dataService}/login`);
       expect(req.request.method).toEqual('POST');
       req.flush({});
       httpTestingController.verify();
@@ -37,9 +32,7 @@ describe('AuthenticationService', () => {
 
     it('passes the credentials in the body', () => {
       service.login('thank.you@forthefish.com', 'solongDude').subscribe();
-      const req = httpTestingController.expectOne(
-        `${environment.dataService}/login`,
-      );
+      const req = httpTestingController.expectOne(`${environment.dataService}/login`);
       expect(req.request.body).toEqual({
         username: 'thank.you@forthefish.com',
         password: 'solongDude',
@@ -65,12 +58,8 @@ describe('AuthenticationService', () => {
 
       it('emits the session', fakeAsync(() => {
         let session: Session;
-        service
-          .login('thank.you@forthefish.com', 'solongDude')
-          .subscribe(r => (session = r));
-        const req = httpTestingController.expectOne(
-          `${environment.dataService}/login`,
-        );
+        service.login('thank.you@forthefish.com', 'solongDude').subscribe((r) => (session = r));
+        const req = httpTestingController.expectOne(`${environment.dataService}/login`);
         req.flush(response);
         tick();
         httpTestingController.verify();
@@ -93,12 +82,8 @@ describe('AuthenticationService', () => {
       });
 
       it('emits undefined', fakeAsync(() => {
-        service
-          .login('thank.you@forthefish.com', 'solongDude')
-          .subscribe(r => expect(r).toEqual(undefined));
-        const req = httpTestingController.expectOne(
-          `${environment.dataService}/login`,
-        );
+        service.login('thank.you@forthefish.com', 'solongDude').subscribe((r) => expect(r).toEqual(undefined));
+        const req = httpTestingController.expectOne(`${environment.dataService}/login`);
         req.flush(response);
         tick();
         httpTestingController.verify();
@@ -109,9 +94,7 @@ describe('AuthenticationService', () => {
   describe('logout', () => {
     it('POSTs the logout', () => {
       service.logout().subscribe();
-      const req = httpTestingController.expectOne(
-        `${environment.dataService}/logout`,
-      );
+      const req = httpTestingController.expectOne(`${environment.dataService}/logout`);
       req.flush({});
       httpTestingController.verify();
       expect(true).toBe(true); // Prevents Jasmine warning

@@ -1,8 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { TastingNotesService } from './tasting-notes.service';
 import { environment } from '@env/environment';
@@ -26,9 +23,7 @@ describe('TastingNotesService', () => {
   describe('get all', () => {
     it('gets the user tasting notes', () => {
       service.getAll().subscribe();
-      const req = httpTestingController.expectOne(
-        `${environment.dataService}/user-tasting-notes`,
-      );
+      const req = httpTestingController.expectOne(`${environment.dataService}/user-tasting-notes`);
       expect(req.request.method).toEqual('GET');
       httpTestingController.verify();
     });
@@ -37,9 +32,7 @@ describe('TastingNotesService', () => {
   describe('delete', () => {
     it('removes the specific note', () => {
       service.delete(4).subscribe();
-      const req = httpTestingController.expectOne(
-        `${environment.dataService}/user-tasting-notes/4`,
-      );
+      const req = httpTestingController.expectOne(`${environment.dataService}/user-tasting-notes/4`);
       expect(req.request.method).toEqual('DELETE');
       httpTestingController.verify();
     });
@@ -56,9 +49,7 @@ describe('TastingNotesService', () => {
           teaCategoryId: 3,
         })
         .subscribe();
-      const req = httpTestingController.expectOne(
-        `${environment.dataService}/user-tasting-notes`,
-      );
+      const req = httpTestingController.expectOne(`${environment.dataService}/user-tasting-notes`);
       expect(req.request.method).toEqual('POST');
       httpTestingController.verify();
     });
@@ -74,9 +65,7 @@ describe('TastingNotesService', () => {
           teaCategoryId: 3,
         })
         .subscribe();
-      const req = httpTestingController.expectOne(
-        `${environment.dataService}/user-tasting-notes/7`,
-      );
+      const req = httpTestingController.expectOne(`${environment.dataService}/user-tasting-notes/7`);
       expect(req.request.method).toEqual('POST');
       httpTestingController.verify();
     });

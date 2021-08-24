@@ -24,8 +24,8 @@ describe('Login', () => {
           loading: false,
           errorMessage: 'Invalid Email or Password',
         },
-        action,
-      ),
+        action
+      )
     ).toEqual({
       loading: true,
       errorMessage: '',
@@ -77,7 +77,7 @@ describe('logout actions', () => {
           email: 'solong@thanksforthefish.com',
         },
         token: 'Imalittletoken',
-      }),
+      })
   );
 
   describe('Logout', () => {
@@ -90,8 +90,8 @@ describe('logout actions', () => {
             loading: false,
             errorMessage: 'this is useless information',
           },
-          action,
-        ),
+          action
+        )
       ).toEqual({
         session,
         loading: true,
@@ -103,9 +103,7 @@ describe('logout actions', () => {
   describe('Logout Success', () => {
     it('clears the loading flag and the session', () => {
       const action = logoutSuccess();
-      expect(
-        reducer({ session, loading: true, errorMessage: '' }, action),
-      ).toEqual({
+      expect(reducer({ session, loading: true, errorMessage: '' }, action)).toEqual({
         loading: false,
         errorMessage: '',
       });
@@ -117,9 +115,7 @@ describe('logout actions', () => {
       const action = logoutFailure({
         errorMessage: 'There was a failure, it was a mess',
       });
-      expect(
-        reducer({ session, loading: true, errorMessage: '' }, action),
-      ).toEqual({
+      expect(reducer({ session, loading: true, errorMessage: '' }, action)).toEqual({
         session,
         loading: false,
         errorMessage: 'There was a failure, it was a mess',
@@ -166,8 +162,8 @@ describe('Unauth Error', () => {
           loading: false,
           errorMessage: '',
         },
-        action,
-      ),
+        action
+      )
     ).toEqual({ loading: false, errorMessage: '' });
   });
 });

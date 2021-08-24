@@ -37,7 +37,7 @@ describe('AuthGuardService', () => {
       store.overrideSelector(selectAuthToken, '294905993');
     });
 
-    it('does not navigate', done => {
+    it('does not navigate', (done) => {
       const navController = TestBed.inject(NavController);
       service.canActivate().subscribe(() => {
         expect(navController.navigateRoot).not.toHaveBeenCalled();
@@ -45,8 +45,8 @@ describe('AuthGuardService', () => {
       });
     });
 
-    it('emits true', done => {
-      service.canActivate().subscribe(response => {
+    it('emits true', (done) => {
+      service.canActivate().subscribe((response) => {
         expect(response).toBe(true);
         done();
       });
@@ -71,11 +71,11 @@ describe('AuthGuardService', () => {
               email: 'test@test.org',
             },
             token: '19940059fkkf039',
-          }),
+          })
         );
       });
 
-      it('does not navigate', done => {
+      it('does not navigate', (done) => {
         const navController = TestBed.inject(NavController);
         service.canActivate().subscribe(() => {
           expect(navController.navigateRoot).not.toHaveBeenCalled();
@@ -83,8 +83,8 @@ describe('AuthGuardService', () => {
         });
       });
 
-      it('emits true', done => {
-        service.canActivate().subscribe(response => {
+      it('emits true', (done) => {
+        service.canActivate().subscribe((response) => {
           expect(response).toBe(true);
           done();
         });
@@ -92,20 +92,17 @@ describe('AuthGuardService', () => {
     });
 
     describe('without a stored session', () => {
-      it('navigates to the login page', done => {
+      it('navigates to the login page', (done) => {
         const navController = TestBed.inject(NavController);
         service.canActivate().subscribe(() => {
           expect(navController.navigateRoot).toHaveBeenCalledTimes(1);
-          expect(navController.navigateRoot).toHaveBeenCalledWith([
-            '/',
-            'login',
-          ]);
+          expect(navController.navigateRoot).toHaveBeenCalledWith(['/', 'login']);
           done();
         });
       });
 
-      it('emits false', done => {
-        service.canActivate().subscribe(response => {
+      it('emits false', (done) => {
+        service.canActivate().subscribe((response) => {
           expect(response).toBe(false);
           done();
         });
