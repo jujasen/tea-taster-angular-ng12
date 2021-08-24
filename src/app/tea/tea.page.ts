@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/core';
 import { Tea } from '@app/models';
 import { State } from '@app/store';
 import { selectTeas } from '@app/store/selectors';
@@ -15,7 +16,7 @@ import { map } from 'rxjs/operators';
 export class TeaPage implements OnInit {
   teas$: Observable<Array<Array<Tea>>>;
 
-  constructor(private navController: NavController, private store: Store<State>) {}
+  constructor(private auth: AuthenticationService, private navController: NavController, private store: Store<State>) {}
 
   ngOnInit() {
     this.teas$ = this.store.select(selectTeas).pipe(map((teas) => this.teaMatrix(teas)));
@@ -23,6 +24,10 @@ export class TeaPage implements OnInit {
 
   showDetailsPage(id: number) {
     this.navController.navigateForward(['tabs', 'tea', 'tea-details', id]);
+  }
+
+  async refresh(): Promise<void> {
+    await this.auth.refreshSession();
   }
 
   private teaMatrix(teas: Array<Tea>): Array<Array<Tea>> {

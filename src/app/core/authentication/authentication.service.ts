@@ -16,6 +16,7 @@ export class AuthenticationService extends IonicAuth {
   constructor(vaultService: SessionVaultService, platform: Platform) {
     const isCordovaApp = platform.is('cordova');
     const config = isCordovaApp ? mobileAuthConfig : webAuthConfig;
+    config.logLevel = 'DEBUG';
     config.tokenStorageProvider = vaultService.vault;
     super(config);
     this.vaultService = vaultService;
