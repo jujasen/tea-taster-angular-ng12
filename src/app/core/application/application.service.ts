@@ -6,10 +6,7 @@ import { SwUpdate } from '@angular/service-worker';
   providedIn: 'root',
 })
 export class ApplicationService {
-  constructor(
-    private alertController: AlertController,
-    private update: SwUpdate,
-  ) {}
+  constructor(private alertController: AlertController, private update: SwUpdate) {}
 
   registerForUpdates() {
     this.update.available.subscribe(() => this.promptUser());

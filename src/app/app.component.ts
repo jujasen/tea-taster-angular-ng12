@@ -8,10 +8,7 @@ import { ApplicationService } from './core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private application: ApplicationService,
-    private platform: Platform,
-  ) {}
+  constructor(private application: ApplicationService, private platform: Platform) {}
 
   ngOnInit() {
     if (!this.platform.is('hybrid')) {
