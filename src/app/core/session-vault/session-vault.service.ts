@@ -31,6 +31,13 @@ export class SessionVaultService {
       this.onPasscodeRequest(isPasscodeSetRequest)
     );
   }
+  async updateTimeout(value: number | null = 1000) {
+    console.log('VaultService.updateTimeout', value);
+    const currentConfig = this.vault.config;
+    currentConfig.lockAfterBackgrounded = value;
+    await this.vault.updateConfig(currentConfig);
+    console.log('VaultService.updateTimeout', 'updated');
+  }
 
   async canUnlock(): Promise<boolean> {
     if ((await this.vault.doesVaultExist()) && (await this.vault.isLocked())) {

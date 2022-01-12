@@ -1,6 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Tasting Notes</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="takePicture()">
+        <ion-icon slot="icon-only" name="camera"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -26,6 +31,23 @@
     </ion-item-sliding>
   </ion-list>
 
+  <ion-card *ngIf="pickedPhoto$ | async as pickedPhoto">
+    <img alt="loaded image" [src]="pickedPhoto.webPath" />
+    <ion-card-header>
+      <ion-card-title>Captured Image</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item-group *ngIf="pickedPhoto.exif">
+        <ion-item-divider>
+          <ion-label>EXIF Metadata</ion-label>
+        </ion-item-divider>
+      </ion-item-group>
+      <ion-item *ngFor="let item of pickedPhoto.exif | keyvalue">
+        <ion-note slot="start">{{item.key}}</ion-note>
+        <ion-label>{{item.value}}</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button data-testid="add-new-button" (click)="newNote()">
       <ion-icon name="add"></ion-icon>

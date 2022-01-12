@@ -13,3 +13,5 @@ export const selectNotes = createSelector(selectData, (state: DataState) => stat
 export const selectNote = createSelector(selectNotes, (notes: Array<TastingNote>, props: { id: number }) =>
   notes.find((t) => t.id === props.id)
 );
+
+export const selectPhoto = createSelector(selectData, (state: DataState) => state.photo);

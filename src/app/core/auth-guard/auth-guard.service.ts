@@ -12,6 +12,7 @@ export class AuthGuardService implements CanActivate {
 
   async canActivate(): Promise<boolean> {
     const authed = await this.authentication.isAuthenticated();
+    console.log('AuthGuard.canActivate()', authed);
     if (authed) {
       return true;
     } else {

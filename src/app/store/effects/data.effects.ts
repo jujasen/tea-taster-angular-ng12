@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { from, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, finalize, map, mergeMap, switchMap } from 'rxjs/operators';
 
 import {
   loginSuccess,
@@ -21,8 +21,14 @@ import {
   teaDetailsChangeRatingFailure,
   teaDetailsChangeRatingSuccess,
   unlockSessionSuccess,
+  photoSessionCancelled,
+  photoSessionFailure,
+  photoSessionStart,
+  photoSessionSuccess,
 } from '@app/store/actions';
-import { AuthenticationService, TastingNotesService, TeaService } from '@app/core';
+import { AuthenticationService, SessionVaultService, TastingNotesService, TeaService } from '@app/core';
+import { Camera, CameraResultType } from '@capacitor/camera';
+import { ToastController } from '@ionic/angular';
 
 @Injectable()
 export class DataEffects {
@@ -121,10 +127,38 @@ export class DataEffects {
     )
   );
 
+  photoSessionStart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(photoSessionStart),
+      mergeMap((action) =>
+        from(this.sessionVault.updateTimeout(null)).pipe(
+          switchMap(() =>
+            from(Camera.getPhoto(action.imageOptions)).pipe(
+              map((photo) => {
+                console.log('photoSessionSuccess', photo);
+                return photoSessionSuccess({ photo });
+              }),
+              catchError((e) => {
+                console.log('photoSessionError', e);
+                if (e) {
+                  return of(photoSessionCancelled());
+                } else {
+                  return of(photoSessionFailure({ errorMessage: 'Photo capture error' }));
+                }
+              })
+            )
+          )
+        )
+      ),
+      finalize(() => this.sessionVault.updateTimeout())
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private auth: AuthenticationService,
     private tastingNotesService: TastingNotesService,
+    private sessionVault: SessionVaultService,
     private teaService: TeaService
   ) {}
 }

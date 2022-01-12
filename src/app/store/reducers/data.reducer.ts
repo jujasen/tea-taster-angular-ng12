@@ -1,5 +1,6 @@
 import { TastingNote, Tea } from '@app/models';
 import * as Actions from '@app/store/actions';
+import { Photo } from '@capacitor/camera';
 import { createReducer, on } from '@ngrx/store';
 
 export interface DataState {
@@ -7,9 +8,11 @@ export interface DataState {
   teas: Array<Tea>;
   loading: boolean;
   errorMessage: string;
+  photo: Photo;
 }
 
 export const initialState: DataState = {
+  photo: undefined,
   notes: [],
   teas: [],
   loading: false,
@@ -115,5 +118,19 @@ export const reducer = createReducer(
     ...state,
     loading: false,
     errorMessage,
+  })),
+  on(Actions.photoSessionFailure, (state, { errorMessage }) => ({
+    ...state,
+    loading: false,
+    errorMessage,
+  })),
+  on(Actions.photoSessionCancelled, (state) => ({
+    ...state,
+    loading: false,
+  })),
+  on(Actions.photoSessionSuccess, (state, { photo }) => ({
+    ...state,
+    loading: false,
+    photo,
   }))
 );

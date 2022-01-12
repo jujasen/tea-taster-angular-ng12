@@ -1,5 +1,6 @@
 import { UnlockMode } from '@app/core';
 import { TastingNote, Tea, User } from '@app/models';
+import { CameraResultType, ImageOptions, Photo } from '@capacitor/camera';
 import { createAction, props } from '@ngrx/store';
 
 export const startup = createAction('[Application] startup');
@@ -53,3 +54,18 @@ export const noteSavedFailure = createAction('[Data API] note saved failure', pr
 export const noteDeleted = createAction('[Notes Page] note deleted', props<{ note: TastingNote }>());
 export const noteDeletedSuccess = createAction('[Data API] note deleted success', props<{ note: TastingNote }>());
 export const noteDeletedFailure = createAction('[Data API] note deleted failure', props<{ errorMessage: string }>());
+
+const defautImageOptions: ImageOptions = {
+  quality: 90,
+  allowEditing: true,
+  resultType: CameraResultType.Uri,
+};
+
+// eslint-disable-next-line max-len
+export const photoSessionStart = createAction(
+  '[Photo Sesssion] session started',
+  (imageOptions = defautImageOptions) => ({ imageOptions })
+);
+export const photoSessionCancelled = createAction('[Photo Sesssion] session cancelled');
+export const photoSessionSuccess = createAction('[Photo Sesssion] session success', props<{ photo: Photo }>());
+export const photoSessionFailure = createAction('[Photo Sesssion] session failure', props<{ errorMessage: string }>());
